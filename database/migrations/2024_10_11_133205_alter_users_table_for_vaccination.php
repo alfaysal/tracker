@@ -26,7 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('nid');
+            $table->dropColumn('vaccination_status');
+            $table->dropColumn('vaccine_center_id');
+            $table->dropColumn('vaccinated_at');
         });
     }
 };
