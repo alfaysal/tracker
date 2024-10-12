@@ -6,11 +6,10 @@ use Illuminate\Http\JsonResponse;
 
 abstract class ApiController extends Controller
 {
-    public function respond($message, $type = 'success', $code = 200, $data = []): JsonResponse
+    public function respond($message, $code = 200, $data = []): JsonResponse
     {
         $response = [
             'message' => $message,
-            'type' => $type,
             'code' => $code,
         ];
 
@@ -23,7 +22,7 @@ abstract class ApiController extends Controller
 
     protected function success(array $data = [], int $code = 200, string $message = ''): JsonResponse
     {
-        return $this->respond($message, 'success', $code, $data);
+        return $this->respond($message, $code, $data);
     }
 
     public function error($code = 422, $data = [], $message = 'Something went wrong! Please try again.'): JsonResponse
