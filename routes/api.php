@@ -11,5 +11,7 @@ Route::prefix('v1')->group(function () {
             ->name('create');
 
         Route::get('/vaccine-centers', [VaccineCenterController::class, 'getVaccineCenters']);
+
+        Route::post('user/searches', [UserController::class, 'searches'])->name('user.searches');
     });
 });
