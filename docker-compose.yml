@@ -40,6 +40,22 @@ services:
         volumes:
             - pgdata:/var/lib/postgresql/data
 
+    node:
+        platform: linux/arm64/v8 #this line is optional if you are using Mac Silicon chip (M1/M2/M3)
+        build:
+            context: .
+            dockerfile: ./frontend/Dockerfile
+        container_name: my-laravel-node
+        ports:
+            - "3000:3000"
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+            - /var/www/node_modules
+        networks:
+            - laravel
+
     redis:
         image: redis:alpine
         container_name: redis
