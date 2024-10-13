@@ -4,7 +4,7 @@ COVID vaccine registration system is a laravel, vue application with registratio
 ## Prerequisite
 - docker
 - node (^18.16.1)
-
+need to install on machine
 ## Installation
 
 clone the repository from your desired folder.
