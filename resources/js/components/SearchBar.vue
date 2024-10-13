@@ -1,10 +1,17 @@
 <template>
     <div>
         <form class="max-w-md mx-auto" @submit.prevent="serachByNId">
-            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div class="text-red-800 text-center mb-2" v-if="failedReason">
+            <label for="default-search"
+                   class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="text-white bg-red-800 rounded-md text-center mb-2 py-2" v-if="failedReason">
                 <h4>{{ searchValidationMessages[failedReason] }}</h4>
             </div>
+
+            <div class="bg-green-200 rounded-md py-2 text-center mb-2" v-if="user && !failedReason">
+                <h4> User: <span class="text-xl">{{ user.name || 'N/A' }}</span></h4>
+                <h4>Vaccination status: <span class="text-xl">{{ user.vaccinated_status }}</span></h4>
+            </div>
+
             <div class="relative">
                 <input
                     v-model="nid"
@@ -24,17 +31,19 @@
 
 <script setup>
 import {GET_USER_STATUS_SEARCH_URL} from "../apiEndpoints.js";
-
 import {ref} from "vue";
 const nid = ref('');
+const user = ref(null);
 const nidIsEmpty = ref(false);
 const failedReason = ref(null);
 const searchValidationMessages = ref({
     empty: "Nid can not empty!!!",
-    length: "length must be 10 chars"
+    length: "length must be 10 chars",
+    notFound: "User not found"
 });
 const serachByNId = () => {
     nidIsEmpty.value = false;
+    user.value = null;
     failedReason.value = null;
 
     let trimedNid = nid.value.trim();
@@ -50,9 +59,12 @@ const serachByNId = () => {
         return;
     }
 
+
     axios.post(GET_USER_STATUS_SEARCH_URL, {nid: nid.value}).then((response) => {
-        nid.value = '';
         console.log(response)
+        user.value = response.data.data;
+    }).catch((err)=>{
+        failedReason.value = 'notFound';
     });
 }
 </script>
