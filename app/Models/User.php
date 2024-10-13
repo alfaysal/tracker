@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nid',
         'vaccinated_at',
         'scheduled_at',
+        'vaccinated_status'
     ];
 
     /**

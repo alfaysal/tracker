@@ -17,6 +17,7 @@ class UserService
     ) {}
     public function registerUser(array $data): User
     {
+        return User::first();
         $data['scheduled_at'] = $this->getScheduledDate($data['vaccine_center']);
         $data['vaccination_status'] = VaccinatedStatus::SCHEDULED;
         return $this->repository->store($data);

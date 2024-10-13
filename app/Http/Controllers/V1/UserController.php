@@ -15,13 +15,13 @@ class UserController extends ApiController
         protected UserService $userService
     ) {}
 
-    public function registration(UserRegistrationRequest $request): JsonResponse
+    public function registration(UserRegistrationRequest $request): UserResource
     {
-        $user = $this->userService->registerUser($request->validated());
-        return $this->success(message: 'Registration successful.', data: $user->toArray());
+        $user = $this->userService->registerUser($request->all());
+        return new UserResource($user);
     }
 
-    public function searches(Request $request)
+    public function searches(Request $request): UserResource
     {
         $request->validate([
             'nid' => 'required|string|size:10',
