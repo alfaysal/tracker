@@ -4,7 +4,8 @@
             <label for="default-search"
                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="text-white bg-red-800 rounded-md text-center mb-2 py-2" v-if="failedReason">
-                <h4>{{ searchValidationMessages[failedReason] }}</h4>
+                <h4 class="mb-2">{{ searchValidationMessages[failedReason] }}</h4>
+                <router-link class="text-white mt-2 bg-blue-800 hover:bg-blue-800 py-1 rounded-md px-2" to="/user/registration">Registration here</router-link>
             </div>
 
             <div class="bg-green-200 rounded-md py-2 text-center mb-2" v-if="user && !failedReason">

@@ -7,13 +7,13 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
-        <div class="bg-green-200 rounded-md py-2 text-center mb-2" v-if="isFormValid && user">
-            <h4>{{ user }}</h4>
+        <div class="bg-green-200 rounded-md py-2 text-center mb-2 p-4" v-if="isFormValid && user">
+            <h4><span class="text-xl">{{ user.name }}</span> has successfully registered. Your scheduled date is <span class="text-xl">{{ user.scheduled_at }}</span></h4>
         </div>
 
         <div class="text-white bg-red-800 rounded-md text-center mb-2 py-2" v-if="!isFormValid">
             <ul>
-                <li v-for="(value, key) in formDataError" :key="key">{{ value }}</li>
+                <li v-for="(value, key) in formDataError" :key="key">{{ value[0] }}</li>
             </ul>
 
         </div>
@@ -194,8 +194,15 @@ const onFormSubmit = () => {
 
     axios.post(GET_USER_REGISTRATION_URL, formData.value).then((response) => {
         user.value = response.data.data;
+        setTimeout(() => {
+            location.reload();
+        }, 2500)
+
     }).catch((err) => {
-        console.log(err)
+        if (err.response.data?.errors) {
+            Object.assign(formDataError, err.response.data?.errors)
+            console.log(formDataError)
+        }
     });
 }
 
@@ -203,37 +210,37 @@ const validateForm = () => {
     resetError();
 
     if (!formData.value.name.trim().length) {
-        formDataError.name = 'Name must not be empty.'
+        formDataError.name = ['Name must not be empty.']
     }
 
     if (!formData.value.email.trim().length) {
-        formDataError.email = 'Email must not be empty.'
+        formDataError.email = ['Email must not be empty.']
     }
 
     if (!formData.value.password.trim().length) {
-        formDataError.password = 'Password must not be empty.'
+        formDataError.password = ['Password must not be empty.']
     } else if (formData.value.password.trim().length < 6){
-        formDataError.password = 'Password must be grater than 6 digit.'
+        formDataError.password = ['Password must be grater than 6 digit.']
     }
 
     if (!formData.value.password_confirmation.trim().length) {
-        formDataError.password_confirmation = 'Password must not be empty.'
+        formDataError.password_confirmation = ['Password must not be empty.']
     } else if (formData.value.password_confirmation.trim().length < 6){
-        formDataError.password_confirmation = 'Password must be grater than 6 digit.'
+        formDataError.password_confirmation = ['Password must be grater than 6 digit.']
     } else if (formData.value.password.trim() !== formData.value.password_confirmation.trim()) {
-        formDataError.password_confirmation = 'Password does not match.'
+        formDataError.password_confirmation = ['Password does not match.']
     }
 
     if (!formData.value.nid.trim().length) {
-        formDataError.nid = 'Nid must not be empty.'
+        formDataError.nid = ['Nid must not be empty.']
     }
 
     if (formData.value.nid.trim().length !== 10) {
-        formDataError.nid = 'Nid must be 10 character.'
+        formDataError.nid = ['Nid must be 10 character.']
     }
 
     if (!formData.value.vaccine_center) {
-        formDataError.vaccineCenter = 'Vaccine center must not empty.'
+        formDataError.vaccineCenter = ['Vaccine center must not empty.']
     }
 
     return isFormValid.value;
