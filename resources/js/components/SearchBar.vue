@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form class="max-w-md mx-auto" @submit.prevent="serachByNId">
+        <form class="max-w-md mx-auto" @submit.prevent="onFormSubmit">
             <label for="default-search"
                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="text-white bg-red-800 rounded-md text-center mb-2 py-2" v-if="failedReason">
@@ -41,31 +41,37 @@ const searchValidationMessages = ref({
     length: "length must be 10 chars",
     notFound: "User not found"
 });
-const serachByNId = () => {
+const onFormSubmit = () => {
     nidIsEmpty.value = false;
     user.value = null;
     failedReason.value = null;
 
+    if (!formDataIsValid()) {
+        return;
+    }
+
+    axios.post(GET_USER_STATUS_SEARCH_URL, {nid: nid.value}).then((response) => {
+        user.value = response.data.data;
+    }).catch((err)=>{
+        failedReason.value = 'notFound';
+    });
+}
+
+const formDataIsValid = () => {
     let trimedNid = nid.value.trim();
 
     if (!trimedNid.length) {
         failedReason.value = 'empty';
         nidIsEmpty.value = true;
-        return;
+        return false;
     }
 
     if (trimedNid.length !== 10) {
         failedReason.value = 'length';
-        return;
+        return false;
     }
 
-
-    axios.post(GET_USER_STATUS_SEARCH_URL, {nid: nid.value}).then((response) => {
-        console.log(response)
-        user.value = response.data.data;
-    }).catch((err)=>{
-        failedReason.value = 'notFound';
-    });
+    return true;
 }
 </script>
 
