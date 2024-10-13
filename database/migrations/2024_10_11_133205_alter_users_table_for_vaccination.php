@@ -17,6 +17,7 @@ return new class extends Migration
             $table->tinyInteger('vaccination_status')->default(VaccinatedStatus::NOT_REGISTERED);
             $table->unsignedBigInteger('vaccine_center_id')->nullable();
             $table->timestamp('vaccinated_at')->nullable();
+            $table->timestamp('scheduled_at')->nullable();
         });
     }
 
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->dropColumn('vaccination_status');
             $table->dropColumn('vaccine_center_id');
             $table->dropColumn('vaccinated_at');
+            $table->dropColumn('scheduled_at');
         });
     }
 };

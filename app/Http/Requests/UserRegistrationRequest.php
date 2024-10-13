@@ -19,6 +19,7 @@ class UserRegistrationRequest extends FormRequest
             'email' => ['required', 'max:60', 'email', Rule::unique('users', 'email')],
             'nid' => ['required', 'size:10', Rule::unique('users', 'nid')],
             'password' => ['required', 'confirmed', 'min:6'],
+            'vaccine_center' => ['required'],
         ];
     }
 }

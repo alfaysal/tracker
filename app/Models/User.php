@@ -23,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'nid',
+        'vaccinated_at',
+        'scheduled_at',
     ];
 
     /**
