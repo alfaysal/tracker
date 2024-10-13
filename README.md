@@ -4,18 +4,15 @@ COVID vaccine registration system is a laravel, vue application with registratio
 ## Prerequisite
 - docker
 - node (^18.16.1)
-need to install on machine
+
 ## Installation
 
-clone the repository from your desired folder.
+clone the repository.
 
 ```bash
 take git@github.com:alfaysal/tracker.git
 ```
-create a .env file & copy the .env.example. Make sure you change it correctly according to the docker-compose file.
-```bash
-take git@github.com:alfaysal/tracker.git
-```
+create a .env file & copy the .env.example.
 now we need to up the container by
 ```
 docker-compose up -d --build
@@ -50,4 +47,4 @@ php artisan schedule:work
 ```
 
 ## Others
-will create a **macro** (customWeekdays) to customize the weekdays for our SMS & email send scheduler. Which actual function holds the trait name ManagesFrequencies of Illuminate\Console\Scheduling\Event class.
+created a **macro** (customWeekdays) to customize the weekdays for our SMS & email send scheduler. Which actual function holds the trait name ManagesFrequencies of Illuminate\Console\Scheduling\Event class.
