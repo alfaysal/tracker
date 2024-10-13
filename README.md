@@ -12,7 +12,7 @@ clone the repository.
 ```bash
 take git@github.com:alfaysal/tracker.git
 ```
-create a .env file & copy the .env.example.
+create a **.env** file & copy the **.env.example**.
 now we need to up the container by
 ```
 docker-compose up -d --build
