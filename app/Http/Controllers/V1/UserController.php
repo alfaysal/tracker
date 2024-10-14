@@ -17,7 +17,7 @@ class UserController extends ApiController
 
     public function registration(UserRegistrationRequest $request): UserResource
     {
-        $user = $this->userService->registerUser($request->all());
+        $user = $this->userService->registerUser($request->validated());
         return new UserResource($user);
     }
 
