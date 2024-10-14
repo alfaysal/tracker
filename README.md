@@ -47,3 +47,4 @@ php artisan schedule:work
 
 ## Others
 created a **macro** (customWeekdays) to customize the weekdays for our SMS & email send scheduler. Which actual function holds the trait name ManagesFrequencies of Illuminate\Console\Scheduling\Event class.
+use **cache** to optimise performance of the registration
