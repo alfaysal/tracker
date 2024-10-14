@@ -12,7 +12,7 @@ clone the repository.
 ```bash
 take git@github.com:alfaysal/tracker.git
 ```
-create a .env file & copy the .env.example.
+create a **.env** file & copy the **.env.example**.
 now we need to up the container by
 ```
 docker-compose up -d --build
@@ -24,8 +24,7 @@ We need to go inside the container to execute some commands.
 ```
 docker exec -it laravel_app bash
 ```
-
-then run the following commands
+then run the following commands on machine environment.
 
 ```
 composer install
