@@ -20,20 +20,25 @@ class VaccineCenterRepository implements VaccineCenterRepositoryInterface
         return $this->vaccineCenter->all();
     }
 
+    public function getVaccineCenterById(int $vaccineCenterId): VaccineCenter
+    {
+        return $this->vaccineCenter->find($vaccineCenterId);
+    }
+
     public function getLastDateInstanceFor(int $vaccineCenterId)
     {
         return $this->vaccineCenter
             ->select(
-                'users.vaccinated_at',
-                'vaccine_centers.id',
+                'users.scheduled_at',
+                'vaccine_centers.id as vaccine_center_id',
                 'vaccine_centers.user_limit_per_day',
                 DB::raw('COUNT(users.id) as user_count')
             )
-            ->join('users', 'users.vaccine_center_id', '=', 'vaccine_centers.id')
-            ->whereNotNull('users.vaccinated_at')
+            ->leftjoin('users', 'users.vaccine_center_id', '=', 'vaccine_centers.id')
+            ->whereNotNull('users.scheduled_at')
             ->where('vaccine_centers.id', $vaccineCenterId)
-            ->groupBy('users.vaccinated_at', 'vaccine_centers.id')
-            ->orderBy('users.vaccinated_at', 'desc')
+            ->groupBy('users.scheduled_at', 'vaccine_centers.id')
+            ->orderBy('users.scheduled_at', 'desc')
             ->first();
     }
 }

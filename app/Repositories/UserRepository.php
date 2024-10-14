@@ -26,4 +26,12 @@ class UserRepository implements UserRepositoryInterface
             ->where($condition)
             ->firstOrFail();
     }
+
+    public function getLastInstanceOfVaccineCenterFromUserTable($vaccineCenterId)
+    {
+        return $this->user
+                ->orderBy('scheduled_at', 'desc')
+                ->where('vaccine_center_id', $vaccineCenterId)
+                ->first();
+    }
 }
