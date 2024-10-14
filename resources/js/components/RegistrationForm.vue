@@ -100,7 +100,7 @@
                     </label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <select
-                            v-model="formData.vaccine_center"
+                            v-model="formData.vaccine_center_id"
                             class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded pl-3 pr-8 py-2 transition duration-300 ease
                             focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none cursor-pointer"
                             required=""
@@ -161,7 +161,7 @@ import {GET_VACCINE_CENTERS_URL, GET_USER_REGISTRATION_URL, GET_USER_STATUS_SEAR
 
 const vaccineCenters = ref([]);
 const formData = ref({
-    vaccine_center: '',
+    vaccine_center_id: '',
     name: '',
     email: '',
     nid: '',
@@ -239,7 +239,7 @@ const validateForm = () => {
         formDataError.nid = ['Nid must be 10 character.']
     }
 
-    if (!formData.value.vaccine_center) {
+    if (!formData.value.vaccine_center_id) {
         formDataError.vaccineCenter = ['Vaccine center must not empty.']
     }
 

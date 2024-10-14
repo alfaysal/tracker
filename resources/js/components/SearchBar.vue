@@ -10,7 +10,7 @@
 
             <div class="bg-green-200 rounded-md py-2 text-center mb-2" v-if="user && !failedReason">
                 <h4> User: <span class="text-xl">{{ user.name || 'N/A' }}</span></h4>
-                <h4>Vaccination status: <span class="text-xl">{{ user.vaccinated_status }}</span></h4>
+                <h4>Vaccination status: <span class="text-xl">{{ user.vaccination_status }}</span></h4>
             </div>
 
             <div class="relative">

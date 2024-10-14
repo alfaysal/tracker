@@ -34,6 +34,6 @@ class UserResource extends JsonResource
             return VaccinatedStatus::VACCINATED->getValue();
         }
 
-        return VaccinatedStatus::getVaccinatedStatus($resource->vaccination_status);
+        return VaccinatedStatus::getVaccinatedStatus($resource->vaccination_status->value);
     }
 }
